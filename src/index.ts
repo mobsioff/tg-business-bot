@@ -8,7 +8,6 @@ import { healthcheckDb } from './db/client.js';
 async function main() {
   fs.mkdirSync(env.MEDIA_DIR, { recursive: true });
 
-  await migrate();
   await healthcheckDb();
 
   const app = createApp();
