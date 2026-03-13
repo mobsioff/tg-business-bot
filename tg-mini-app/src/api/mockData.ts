@@ -1,0 +1,247 @@
+import { LogEntry, DashboardStats, ActivityItem } from '@/types';
+
+const now = new Date();
+const d = (daysAgo: number, hoursAgo = 0): string => {
+  const date = new Date(now);
+  date.setDate(date.getDate() - daysAgo);
+  date.setHours(date.getHours() - hoursAgo);
+  return date.toISOString();
+};
+
+export const MOCK_LOGS: LogEntry[] = [
+  {
+    id: '1',
+    messageText: 'Hey! Can you check the latest deployment logs? Something seems off with the production server response times.',
+    messageType: 'text',
+    senderName: 'Alex Petrov',
+    senderUsername: 'alexpetrov',
+    chatName: 'DevOps Team',
+    chatType: 'supergroup',
+    savedAt: d(0, 1),
+    originalDate: d(0, 2),
+    forwarded: false,
+  },
+  {
+    id: '2',
+    messageText: 'Screenshot_2024_prod_metrics.png',
+    messageType: 'photo',
+    senderName: 'Maria Chen',
+    senderUsername: 'mariachen_dev',
+    chatName: 'DevOps Team',
+    chatType: 'supergroup',
+    savedAt: d(0, 2),
+    originalDate: d(0, 3),
+    fileSize: 284500,
+    forwarded: false,
+  },
+  {
+    id: '3',
+    messageText: 'The Q4 report is ready for review. Please go through sections 3 and 7 carefully — there are some discrepancies in the revenue projections that need team input before we send this to the board.',
+    messageType: 'text',
+    senderName: 'Sarah Williams',
+    senderUsername: 'swilliams',
+    chatName: 'Finance & Reports',
+    chatType: 'group',
+    savedAt: d(0, 4),
+    originalDate: d(0, 5),
+    forwarded: true,
+    forwardFrom: 'CFO Office',
+  },
+  {
+    id: '4',
+    messageText: 'Q4_Financial_Report_Final_v3.pdf',
+    messageType: 'document',
+    senderName: 'Sarah Williams',
+    senderUsername: 'swilliams',
+    chatName: 'Finance & Reports',
+    chatType: 'group',
+    savedAt: d(1, 0),
+    originalDate: d(1, 1),
+    fileSize: 4200000,
+    forwarded: false,
+  },
+  {
+    id: '5',
+    messageText: 'Just a reminder that the stand-up is at 10am tomorrow. Please update your task board before then. Also, the sprint review has been rescheduled to Thursday.',
+    messageType: 'text',
+    senderName: 'Tom Bradley',
+    senderUsername: null,
+    chatName: 'Engineering Standup',
+    chatType: 'supergroup',
+    savedAt: d(1, 2),
+    originalDate: d(1, 3),
+    forwarded: false,
+  },
+  {
+    id: '6',
+    messageText: 'Meeting_recording_2024.mp4',
+    messageType: 'video',
+    senderName: 'Nina Kowalski',
+    senderUsername: 'ninak',
+    chatName: 'Design Team',
+    chatType: 'group',
+    savedAt: d(1, 5),
+    originalDate: d(1, 6),
+    fileSize: 128000000,
+    forwarded: false,
+  },
+  {
+    id: '7',
+    messageText: 'Important: all API keys rotated. Check the vault for updated credentials. DO NOT use old keys after 6pm today — they will be revoked.',
+    messageType: 'text',
+    senderName: 'Security Bot',
+    senderUsername: 'securitybot',
+    chatName: 'Security Alerts',
+    chatType: 'channel',
+    savedAt: d(2, 0),
+    originalDate: d(2, 1),
+    forwarded: false,
+  },
+  {
+    id: '8',
+    messageText: 'Can you send me the onboarding checklist for new contractors? The HR system is down and I need it urgently.',
+    messageType: 'text',
+    senderName: 'James Park',
+    senderUsername: 'jpark_hr',
+    chatName: 'James Park',
+    chatType: 'private',
+    savedAt: d(2, 3),
+    originalDate: d(2, 4),
+    forwarded: false,
+  },
+  {
+    id: '9',
+    messageText: 'infrastructure_diagram_v2.png',
+    messageType: 'photo',
+    senderName: 'Alex Petrov',
+    senderUsername: 'alexpetrov',
+    chatName: 'Architecture Review',
+    chatType: 'group',
+    savedAt: d(3, 0),
+    originalDate: d(3, 1),
+    fileSize: 890000,
+    forwarded: false,
+  },
+  {
+    id: '10',
+    messageText: 'Reminder: performance reviews are due by end of month. Please complete your self-assessments and peer reviews on the HR portal. Link in pinned message.',
+    messageType: 'text',
+    senderName: null,
+    senderUsername: null,
+    chatName: 'Company Announcements',
+    chatType: 'channel',
+    savedAt: d(3, 2),
+    originalDate: d(3, 3),
+    forwarded: false,
+  },
+  {
+    id: '11',
+    messageText: 'voice_note_2024.ogg',
+    messageType: 'voice',
+    senderName: 'Maria Chen',
+    senderUsername: 'mariachen_dev',
+    chatName: 'Maria Chen',
+    chatType: 'private',
+    savedAt: d(4, 0),
+    originalDate: d(4, 1),
+    fileSize: 45000,
+    forwarded: false,
+  },
+  {
+    id: '12',
+    messageText: 'The new design system components are live in Figma. I\'ve added interactive variants for all button states, form elements, and navigation patterns. Feedback welcome before we move to dev handoff.',
+    messageType: 'text',
+    senderName: 'Lena Russo',
+    senderUsername: 'lenarusso',
+    chatName: 'Design Team',
+    chatType: 'group',
+    savedAt: d(4, 3),
+    originalDate: d(4, 4),
+    forwarded: false,
+  },
+  {
+    id: '13',
+    messageText: 'release_notes_v2.4.0.txt',
+    messageType: 'document',
+    senderName: 'CI/CD Pipeline',
+    senderUsername: 'cicdbot',
+    chatName: 'Deployments',
+    chatType: 'channel',
+    savedAt: d(5, 0),
+    originalDate: d(5, 1),
+    fileSize: 12000,
+    forwarded: false,
+  },
+  {
+    id: '14',
+    messageText: 'We need to discuss the database migration plan. The current timeline seems too aggressive — especially given the risks around the payment table. Let\'s schedule a call.',
+    messageType: 'text',
+    senderName: 'David Kim',
+    senderUsername: 'davidkim_eng',
+    chatName: 'Backend Team',
+    chatType: 'supergroup',
+    savedAt: d(6, 1),
+    originalDate: d(6, 2),
+    forwarded: false,
+  },
+  {
+    id: '15',
+    messageText: 'Weekly metrics attached. DAU is up 12% vs last week. Retention at D7 slightly dipped. Full breakdown inside.',
+    messageType: 'text',
+    senderName: 'Analytics Bot',
+    senderUsername: 'analyticsbot',
+    chatName: 'Growth & Analytics',
+    chatType: 'channel',
+    savedAt: d(7, 0),
+    originalDate: d(7, 1),
+    forwarded: false,
+  },
+];
+
+const recentActivity: ActivityItem[] = [
+  { id: 'a1', description: 'Message saved from DevOps Team', timestamp: d(0, 1), type: 'save' },
+  { id: 'a2', description: 'Photo saved from DevOps Team', timestamp: d(0, 2), type: 'save' },
+  { id: 'a3', description: 'Document saved from Finance & Reports', timestamp: d(0, 4), type: 'save' },
+  { id: 'a4', description: 'Bot started — session initialized', timestamp: d(0, 8), type: 'system' },
+  { id: 'a5', description: 'Message saved from Engineering Standup', timestamp: d(1, 2), type: 'save' },
+  { id: 'a6', description: 'Video saved from Design Team', timestamp: d(1, 5), type: 'save' },
+];
+
+export const MOCK_STATS: DashboardStats = {
+  totalMessages: MOCK_LOGS.length,
+  todayMessages: MOCK_LOGS.filter(l => {
+    const saved = new Date(l.savedAt);
+    const today = new Date();
+    return saved.toDateString() === today.toDateString();
+  }).length,
+  weekMessages: MOCK_LOGS.filter(l => {
+    const saved = new Date(l.savedAt);
+    const weekAgo = new Date(); weekAgo.setDate(weekAgo.getDate() - 7);
+    return saved >= weekAgo;
+  }).length,
+  monthMessages: MOCK_LOGS.filter(l => {
+    const saved = new Date(l.savedAt);
+    const monthAgo = new Date(); monthAgo.setMonth(monthAgo.getMonth() - 1);
+    return saved >= monthAgo;
+  }).length,
+  topChats: [
+    { name: 'DevOps Team', count: 3 },
+    { name: 'Finance & Reports', count: 2 },
+    { name: 'Design Team', count: 2 },
+    { name: 'Engineering Standup', count: 1 },
+    { name: 'Security Alerts', count: 1 },
+  ],
+  topSenders: [
+    { name: 'Alex Petrov', username: 'alexpetrov', count: 3 },
+    { name: 'Maria Chen', username: 'mariachen_dev', count: 2 },
+    { name: 'Sarah Williams', username: 'swilliams', count: 2 },
+  ],
+  messageTypeBreakdown: [
+    { type: 'text', count: 9 },
+    { type: 'photo', count: 2 },
+    { type: 'document', count: 2 },
+    { type: 'video', count: 1 },
+    { type: 'voice', count: 1 },
+  ],
+  recentActivity,
+};

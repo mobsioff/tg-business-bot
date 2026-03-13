@@ -1,0 +1,28 @@
+{
+  "name": "telegram-business-antidelete-bot",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "start": "node --enable-source-maps dist/index.js",
+    "build": "tsc -p tsconfig.json",
+    "set:webhook": "tsx src/telegram/commands.ts set-webhook",
+    "delete:webhook": "tsx src/telegram/commands.ts delete-webhook",
+    "bot:info": "tsx src/telegram/commands.ts get-me"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.99.0",
+    "dotenv": "^16.6.1",
+    "express": "^5.1.0",
+    "pino": "^9.9.0",
+    "zod": "^4.1.5"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.3.1",
+    "pino-pretty": "^13.1.1",
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.2"
+  }
+}
