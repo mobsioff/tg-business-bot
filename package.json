@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "start": "node --enable-source-maps dist/index.js",
-    "build": "tsc -p tsconfig.json",
+    "build": "tsc -p tsconfig.json && npx cpy src/db/schema.sql dist/db/",
     "set:webhook": "tsx src/telegram/commands.ts set-webhook",
     "delete:webhook": "tsx src/telegram/commands.ts delete-webhook",
     "bot:info": "tsx src/telegram/commands.ts get-me"
@@ -21,6 +21,7 @@
   "devDependencies": {
     "@types/express": "^5.0.3",
     "@types/node": "^24.3.1",
+    "cpy-cli": "^5.0.0",
     "pino-pretty": "^13.1.1",
     "tsx": "^4.20.5",
     "typescript": "^5.9.2"
